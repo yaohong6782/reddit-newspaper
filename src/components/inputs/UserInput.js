@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Input, FormControl, FormLabel, Button } from "@chakra-ui/react";
 import Display from "../display/Display";
+import styles from "./UserInput.module.css";
 
 const UserInput = (props) => {
   //   const [userInput, setUserInput] = useState("");
@@ -11,24 +12,25 @@ const UserInput = (props) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    setInput(userInput)
+    setInput(userInput);
   };
 
-  const subRedditHandler = (userEnteredThread) => {};
   return (
-    <div>
+    <div className={styles.formWrapper}>
       <form onSubmit={onSubmitHandler}>
         <FormControl>
-          <FormLabel>Enter your reddit thread</FormLabel>
           <Input
             type="text"
             width="auto"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             placeholder="Sub-reddits"
+            className={styles.inputWrapper}
           />
-
-          <Button type="submit">Click</Button>
+          
+          <Button className={styles.buttonWrapper} type="submit">
+            Search
+          </Button>
         </FormControl>
       </form>
     </div>

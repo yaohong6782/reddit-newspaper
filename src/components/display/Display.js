@@ -69,7 +69,7 @@ const Display = (props) => {
           </TabList>
 
           <TabPanels>
-            <TabPanel>{"dota2"}</TabPanel>
+            <TabPanel>{}</TabPanel>
             <TabPanel>{"counter strike"}</TabPanel>
           </TabPanels>
         </Tabs>
