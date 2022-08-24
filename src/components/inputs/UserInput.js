@@ -3,20 +3,18 @@ import React, { useState } from "react";
 import { Input, FormControl, FormLabel, Button } from "@chakra-ui/react";
 import Display from "../display/Display";
 
-const UserInput = () => {
+const UserInput = (props) => {
+  //   const [userInput, setUserInput] = useState("");
+  const { input, setInput } = props;
+
   const [userInput, setUserInput] = useState("");
-  const [clicked, setIsClicked] = useState(false);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    //console.log(userInput);
+    setInput(userInput)
   };
 
-//   const handleOnChange = (e) => {
-//     e.preventDefault();
-//     setUserInput(e.target.value);
-    
-//   };
+  const subRedditHandler = (userEnteredThread) => {};
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
@@ -33,8 +31,6 @@ const UserInput = () => {
           <Button type="submit">Click</Button>
         </FormControl>
       </form>
-
-    
     </div>
   );
 };

@@ -1,0 +1,10 @@
+.redditLink {
+    font-weight:700;
+    color:black;
+}
+
+
+.reddtLinkWrapper :hover {
+    background-color: azure;
+    
+}
