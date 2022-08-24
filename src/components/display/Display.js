@@ -6,15 +6,21 @@ import {
   Image,
   AspectRatio,
   Container,
-  Tab, Tabs, TabList, TabPanels, TabPanel
+  Tab,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Alert,
+  AlertIcon,
+  AlertTitle,
 } from "@chakra-ui/react";
 import styles from "./Display.module.css";
 
 const Display = (props) => {
-  //   console.log(props.thread);
   const [listOfArticles, setListOfArticles] = useState([]);
 
-  //   const url = "https://fakestoreapi.com/products";
+  const [validReddit, setIsValidReddit] = useState(true);
 
   let userThread = props.thread;
   if (props.thread !== "") {
@@ -23,7 +29,7 @@ const Display = (props) => {
     userThread = "dota2";
   }
 
-  const url = `https://www.reddit.com/r/${userThread}/hot.json?&limit=10`;
+  const url = `https://www.reddit.com/r/${userThread}/hot.json?&limit=15`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,40 +40,47 @@ const Display = (props) => {
         },
       })
         .then((res) => res.json())
-        .then((data) => setListOfArticles(data["data"]["children"]));
+        .then((data) => setListOfArticles(data["data"]["children"]))
+        .catch((err) => console.log(err));
     };
 
-    fetchData().catch(console.error);
-  }, [url]);
+    fetchData().catch(console.error());
+  }, [url, validReddit]);
 
+  
   console.log(listOfArticles);
   const concatReddit = "https://www.reddit.com";
-
+  
   return (
     <div>
+        {/* {!validReddit && 
+        <Alert>
+            <AlertIcon/>
+            <AlertTitle>Invalid thread</AlertTitle>
+        </Alert>} */}
       <SimpleGrid columns={1} spacing={2}>
-      <Tabs>
-        <TabList>
-          <Tab>Dota 2</Tab>
-          <Tab>Global Offensive</Tab>
-          <Tab>Livestream Fails</Tab>
-          <Tab>GTA RP Clips</Tab>
-          <Tab></Tab>
-        </TabList>
+        <Tabs>
+          <TabList>
+            <Tab>Dota 2</Tab>
+            <Tab>Global Offensive</Tab>
+            <Tab>Livestream Fails</Tab>
+            <Tab>GTA RP</Tab>
+            <Tab></Tab>
+          </TabList>
 
-        <TabPanels>
-            <TabPanel>
-                {userThread = "dota2"}
-            </TabPanel>
-            <TabPanel>
-                {userThread = "globaloffensive"}
-            </TabPanel>
-        </TabPanels>
-      </Tabs>
+          <TabPanels>
+            <TabPanel>{"dota2"}</TabPanel>
+            <TabPanel>{"counter strike"}</TabPanel>
+          </TabPanels>
+        </Tabs>
         {listOfArticles.length > 0 &&
           listOfArticles.map((articles, idx) => {
             return (
-              <Container padding="2" key={idx}>
+              <Container
+                className={styles.containerWrapper}
+                padding="2"
+                key={idx}
+              >
                 <Box
                   padding="4"
                   maxW={"lg"}
@@ -75,7 +88,7 @@ const Display = (props) => {
                   borderRadius="lg"
                   key={idx}
                 >
-                  <div className={styles.reddtLinkWrapper}>
+                  <div className={styles.redditLinkWrapper}>
                     <a
                       className={styles.redditLink}
                       href={concatReddit + articles.data.permalink}
@@ -85,7 +98,7 @@ const Display = (props) => {
                       {articles.data.title}
                     </a>
                   </div>
-                  {/* /r/DotA2/comments/wweqxn/atm_in_malaysia/ */}
+
                   {articles.data.domain === "i.redd.it" ? (
                     <Image src={articles.data.url} maxW={"sm"} />
                   ) : articles.data.domain === "v.redd.it" ? (
@@ -99,6 +112,14 @@ const Display = (props) => {
                   ) : (
                     ""
                   )}
+
+                  <div>
+                    <b>Upvotes : </b> {articles.data.score}
+                  </div>
+                  <div>
+                    <b>Comments : </b>
+                    {articles.data.num_comments}
+                  </div>
                 </Box>
               </Container>
             );

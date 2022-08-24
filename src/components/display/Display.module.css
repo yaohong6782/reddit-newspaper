@@ -1,10 +1,22 @@
 .redditLink {
     font-weight:700;
     color:black;
+
 }
 
 
-.reddtLinkWrapper :hover {
+.redditLink :hover {
+    font-weight:1000
+}
+/* .reddtLinkWrapper :hover {
     background-color: azure;
     
+} */
+
+.containerWrapper :hover {
+    background-color:blanchedalmond;
+}
+
+a :hover {
+    color:blue;
 }
