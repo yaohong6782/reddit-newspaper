@@ -1,5 +1,5 @@
 Making article section for my top subthreads for upcoming esports tournament\
-Why?\
+# Why?\
 Because I am too lazy to switch tabs and filter it through my chrome knowing my habits\
 
 
